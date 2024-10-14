@@ -1,0 +1,7 @@
+## Interface: 30300
+## Title: Felskorn Tooltips
+## Notes: Adds addition info for Tooltips on items.
+## Author: Hawjiki
+## Version: 1.0
+
+Core.lua
