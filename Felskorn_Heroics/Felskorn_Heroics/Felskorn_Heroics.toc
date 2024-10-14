@@ -1,0 +1,6 @@
+## Interface: 30300
+## Title: Felskorn Heroics
+## Version: 1
+## Notes: Replaces the Heroic flag on certain item levels.
+## Author: Fenuks
+core.lua
