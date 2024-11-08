@@ -11,6 +11,40 @@ local ParseTooltip_Enabled = false;
 local AtlasLootScanTooltip = CreateFrame("GAMETOOLTIP","AtlasLootScanTooltip",nil,"GameTooltipTemplate");
 AtlasLootScanTooltip:SetOwner(UIParent, "ANCHOR_NONE");
 
+local itemLevelsAndTexts = {
+    [66] = "|cff00FF00Tier 1|r",
+    [76] = "|cff00FF00Tier 2|r",
+    [86] = "|cff00FF00Tier 3|r",
+    [88] = "|cff00FF00Tier 3|r",
+    [92] = "|cff00FF00Tier 3|r",
+    [120] = "|cff00FF00Tier 4|r",
+    [133] = "|cff00FF00Tier 5|r",
+    [146] = "|cff00FF00Tier 6|r",
+    [154] = "|cff00FF00Tier 6|r",
+    [200] = "|cff00FF00Tier 7|r",
+    [213] = "|cff00FF00Tier 7.5|r",
+    [219] = "|cff00FF00Tier 8|r",
+    [226] = "|cff00FF00Tier 8.5|r",
+    [232] = "|cff00FF00Tier 9|r",
+    [245] = "|cff00FF00Tier 9.5|r",
+    [258] = "|cff00FF00Tier 9 Heroic|r",
+    [251] = "|cff00FF00Tier 10|r",
+    [264] = "|cff00FF00Tier 10.5|r",
+    [277] = "|cff00FF00Tier 10 Heroic|r",
+    [290] = "|cff00FF00Tier 11|r",
+    [300] = "|cffe74c3cArtifact|r",
+    [310] = "|cff00FF00Tier 12|r",
+    [330] = "|cff00FF00Tier 13|r",
+    [340] = "|cffe74c3cArtifact 2|r",
+    [350] = "|cff00FF00Tier 14|r",
+    [380] = "|cff00FF00Tier 15|r",
+    [390] = "|cffe74c3cArtifact 3|r",
+    [400] = "|cff00FF00Tier 16|r"
+}
+
+local function GetTextByItemLevel(itemLevel)
+    return itemLevelsAndTexts[itemLevel]
+end
 
 function AtlasLoot_GetEnchantLink(enchantID)
    if not enchantID then return end
@@ -133,86 +167,17 @@ function AtlasLootItem_OnEnter()
                 end
             --Default game tooltips
             else
-                local function FindTooltipLine(tooltip, lineIndex)
-                    for i = 1, tooltip:NumLines() do
-                        local line = _G[tooltip:GetName() .. "TextLeft" .. i]
-                        if i == lineIndex then
-                            return line
-                        end
-                    end
-                    return nil
-                end
-                
-                local itemLevelFlags = {
-                    [1] = 290, -- T11
-                    [2] = 300, -- Artifact 1
-                    [3] = 310, -- T12
-                    [4] = 330, -- T13
-                    [5] = 340, -- Artifact 2
-                    [6] = 350, -- T14
-                    [7] = 380, -- T15
-                    [8] = 390, -- Artifact 3
-                    [9] = 400, -- T16
-                }
-                
-                local flagTexts = {
-                    [1] = "|cff00FF00Tier 11",
-                    [2] = "|cffe74c3cArtifact",
-                    [3] = "|cff00FF00Tier 12",
-                    [4] = "|cff00FF00Tier 13",
-                    [5] = "|cffe74c3cArtifact 2",
-                    [6] = "|cff00FF00Tier 14",
-                    [7] = "|cff00FF00Tier 15",
-                    [8] = "|cffe74c3cArtifact 3",
-                    [9] = "|cff00FF00Tier 16",
-                }
-                
-                local function GetFlagByItemLevel(itemLevel)
-                    if itemLevel == itemLevelFlags[1] then
-                        return 1
-                    elseif itemLevel == itemLevelFlags[2] then
-                        return 2
-                    elseif itemLevel == itemLevelFlags[3] then
-                        return 3
-                    elseif itemLevel == itemLevelFlags[4] then
-                        return 4
-                    elseif itemLevel == itemLevelFlags[5] then
-                        return 5
-                    elseif itemLevel == itemLevelFlags[6] then
-                        return 6
-                    elseif itemLevel == itemLevelFlags[7] then
-                        return 7
-                    elseif itemLevel == itemLevelFlags[8] then
-                        return 8
-                    elseif itemLevel == itemLevelFlags[9] then
-                        return 9			
-                    end
-                    return nil 
-                end
-
+                -- Item levels and corresponding tier texts with color codes
                 local function ModifyAtlasLootTooltip(tooltip, itemID)
-                    local itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType,
-                          itemStackCount, itemEquipLoc, itemTexture, sellPrice, classID, subclassID, bindType,
-                          expacID, setID, isCraftingReagent = GetItemInfo(itemID)
-                
-                    if not itemName then
-                        return
-                    end
-                
+                    local _, _, _, itemLevel, _, itemType = GetItemInfo(itemID)
                     if itemType == 'Armor' or itemType == 'Weapon' or itemType == 'Finger' then
-                        local flag = GetFlagByItemLevel(itemLevel)
-                
-                        if flag then
-                            local lineText = flagTexts[flag]
-                
+                        local lineText = GetTextByItemLevel(itemLevel)
+                        if lineText then
                             for i = 1, tooltip:NumLines() do
                                 local leftLine = _G[tooltip:GetName() .. "TextLeft" .. i]
-                                if leftLine then
-                                    local text = leftLine:GetText()
-                                    if text == "Heroic" then
-                                        leftLine:SetText(lineText)
-                                        break
-                                    end
+                                if leftLine and leftLine:GetText() == "Heroic" then
+                                    leftLine:SetText(lineText)
+                                    break
                                 end
                             end
                         end
@@ -373,49 +338,7 @@ end
 -- Missing GameToolTip method
 -- Enables item comparing. I've ripped this method directly from GameTooltip.lua and modified to work with AtlasLootTooltip /siena
 -------
-local function FindTooltipLine(tooltip, lineIndex)
-    for i = 1, tooltip:NumLines() do
-        local line = _G[tooltip:GetName() .. "TextLeft" .. i]
-        if i == lineIndex then
-            return line
-        end
-    end
-    return nil
-end
-
-local itemLevelFlags = {
-    [1] = 290, -- T11
-    [2] = 300, -- Artifact 1
-    [3] = 310, -- T12
-    [4] = 330, -- T13
-    [5] = 340, -- Artifact 2
-    [6] = 350, -- T14
-    [7] = 380, -- T15
-    [8] = 390, -- Artifact 3
-    [9] = 400, -- T16
-}
-
-local flagTexts = {
-    [1] = "|cff00FF00Tier 11",
-    [2] = "|cffe74c3cArtifact",
-    [3] = "|cff00FF00Tier 12",
-    [4] = "|cff00FF00Tier 13",
-    [5] = "|cffe74c3cArtifact 2",
-    [6] = "|cff00FF00Tier 14",
-    [7] = "|cff00FF00Tier 15",
-    [8] = "|cffe74c3cArtifact 3",
-    [9] = "|cff00FF00Tier 16",
-}
-
-local function GetFlagByItemLevel(itemLevel)
-    for flag, level in pairs(itemLevelFlags) do
-        if itemLevel == level then
-            return flag
-        end
-    end
-    return nil
-end
-
+-- Helper function to locate and apply the tier text based on item level
 local function FindItemIDByNameInLeft2AndApplyFlag(tooltip)
     local leftLine2 = _G[tooltip:GetName() .. "TextLeft2"]
     if leftLine2 then
@@ -425,9 +348,8 @@ local function FindItemIDByNameInLeft2AndApplyFlag(tooltip)
             if itemID then
                 local _, _, _, itemLevel = GetItemInfo(itemID)
                 if itemLevel then
-                    local flag = GetFlagByItemLevel(itemLevel)
-                    if flag then
-                        local lineText = flagTexts[flag]
+                    local lineText = GetTextByItemLevel(itemLevel)
+                    if lineText then
                         for j = 1, tooltip:NumLines() do
                             local leftLineHeroic = _G[tooltip:GetName() .. "TextLeft" .. j]
                             if leftLineHeroic and leftLineHeroic:GetText() == "Heroic" then
