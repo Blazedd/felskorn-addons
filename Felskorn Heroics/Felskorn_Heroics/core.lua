@@ -37,28 +37,25 @@ local itemLevelsAndTexts = {
 }
 
 --- Only make edits below if you're familiar with the code.
+local pendingTooltips = {}
+
 local function GetTextByItemLevel(itemLevel)
     return itemLevelsAndTexts[itemLevel]
-end
-
-local function AddTooltipLine(tooltip)
-    local itemName, itemLink, _, itemLevel, _, itemType = GetItemInfo(tooltip:GetItem())
-    if itemLink and (itemType == 'Armor' or itemType == 'Weapon') then
-        local lineText = GetTextByItemLevel(itemLevel)
-        if lineText then
-            local line = _G[tooltip:GetName() .. "TextLeft2"]
-            if line then
-                line:SetText(lineText)
-            end
-        end
-    end
 end
 
 local function FindAndReplaceHeroicText(tooltip)
     for i = 1, tooltip:NumLines() do
         local leftLine = _G[tooltip:GetName() .. "TextLeft" .. i]
         if leftLine and leftLine:GetText() == "Heroic" then
-            local _, _, _, itemLevel = GetItemInfo(tooltip:GetItem())
+            local _, link = tooltip:GetItem()
+            if not link then return end
+
+            local _, _, _, itemLevel = GetItemInfo(link)
+            if not itemLevel then
+                pendingTooltips[link] = tooltip
+                return
+            end
+
             local lineText = GetTextByItemLevel(itemLevel)
             if lineText then
                 leftLine:SetText(lineText)
@@ -68,6 +65,27 @@ local function FindAndReplaceHeroicText(tooltip)
         end
     end
 end
+
+local function OnTooltipSetItem(tooltip)
+    local _, link = tooltip:GetItem()
+    if link then
+        FindAndReplaceHeroicText(tooltip)
+    end
+end
+
+local f = CreateFrame("Frame")
+f:RegisterEvent("GET_ITEM_INFO_RECEIVED")
+f:SetScript("OnEvent", function(self, event, itemID)
+    if event == "GET_ITEM_INFO_RECEIVED" and itemID then
+        for link, tooltip in pairs(pendingTooltips) do
+            local id = tonumber(link:match("item:(%d+)"))
+            if id == itemID then
+                FindAndReplaceHeroicText(tooltip)
+                pendingTooltips[link] = nil
+            end
+        end
+    end
+end)
 
 local function ShowCompareItemTooltip(link)
     local tooltips = {ShoppingTooltip1, ShoppingTooltip2, ShoppingTooltip3}
@@ -96,13 +114,8 @@ local function ShowCompareItemTooltip(link)
     end
 end
 
-GameTooltip:HookScript("OnTooltipSetItem", function(self)
-    AddTooltipLine(self)
-end)
-
-ItemRefTooltip:HookScript("OnTooltipSetItem", function(tooltip)
-    AddTooltipLine(tooltip)
-end)
+GameTooltip:HookScript("OnTooltipSetItem", OnTooltipSetItem)
+ItemRefTooltip:HookScript("OnTooltipSetItem", OnTooltipSetItem)
 
 GameTooltip:HookScript("OnTooltipSetItem", function(self)
     local _, link = self:GetItem()
