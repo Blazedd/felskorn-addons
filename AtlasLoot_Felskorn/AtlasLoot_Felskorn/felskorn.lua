@@ -33,6 +33,8 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 {13, 4000118, "", "Scarlet Maul", "", "", ""};
 {14, 4000099, "", "Scarlet Focus", "", "", ""};
 {15, 4000004, "", "Scarlet Plate Boots", "", "", ""};
+{16, 4000147, "", "Scarlet Cloth Hood", "", "", ""};
+{17, 4000148, "", "Scarlet Leather Helmet", "", "", ""};
 {20, 4000000, "", "Scarlet Prophet's Bauble", "", "", "25%"};
 {21, 4000012, "", "Scarlet Militant's Emblem", "", "", "25%"};
 
@@ -53,8 +55,10 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 {11, 4000054, "", "Scarlet Scarf", "", "", ""};
 {12, 4000026, "", "Scralet Plate Bracers", "", "", ""};
 {13, 4000100, "", "Scarlet Leather Shoulderpads", "", "", ""};
-{14, 4000094, "", "Scarlet Greatspear", "", "", ""};
+{14, 4000094, "", "Scarlet Greatspear", "Polearm", "", ""};
 {15, 4000058, "", "Scarlet Plate Fingerguards", "", "", ""};
+{16, 4000149, "", "Scarlet Leather Cover", "", "", ""};
+{17, 4000150, "", "Scarlet Mail Headpiece", "", "", ""};
 {20, 4000024, "", "Scarlet Spellbinder's Sigil", "", "", "25%"};
 {21, 4000072, "", "Scarlet Champion's Badge", "", "", "25%"};
 		
@@ -78,6 +82,8 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 {13, 4000048, "", "Scarlet Cloth Kilt", "", "", ""};
 {14, 4000002, "", "Scralet Mail Bracers", "", "", ""};
 {15, 4000036, "", "Scarlet Pendant", "", "", ""};
+{16, 4000151, "", "Scarlet Mail Headguard", "", "", ""};
+{17, 4000152, "", "Scarlet Leather Mantle", "", "", ""};
 {20, 4000138, "", "Scarlet Pugilist's Medallion", "", "", "25%"};
 {21, 4000139, "", "Scarlet Defender's Sigil", "", "", "25%"};
 	
@@ -101,6 +107,8 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 {13, 4000069, "", "Scarlet Plate Strap", "", "", ""};
 {14, 4000120, "", "Scarlet Mail Shoulderguards", "", "", ""};
 {15, 4000005, "", "Scarlet Spellblade", "", "", ""};
+{16, 4000153, "", "Scarlet Leather Spaulders", "", "", ""};
+{17, 4000154, "", "Scarlet Leather Tunic", "", "", ""};
 {20, 4000140, "", "Scarlet Mystic's Trinket", "", "", "25%"};
 {21, 4000141, "", "Scarlet Spiritualist's Emblem", "", "", "25%"};
 	
@@ -125,6 +133,8 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 {14, 4000014, "", "Scralet Cloth Bracers", "", "", ""};
 {15, 4000127, "", "Scarlet Mail Treads", "", "", ""};
 {16, 4000078, "", "Scarlet Mail Shoulderpads", "", "", ""};
+{17, 4000155, "", "Scarlet Leather Raiment", "", "", ""};
+{18, 4000154, "", "Scarlet Mail Cuirass", "", "", ""};
 {20, 4000142, "", "Scarlet Theurgist's Medallion", "", "", "25%"};
 {21, 4000143, "", "Scarlet Panzer's Emblem", "", "", "25%"};
 	
@@ -149,6 +159,8 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 {14, 4000016, "", "Scarlet Leather Boots", "", "", ""};
 {15, 4000007, "", "Scarlet Choker", "", "", ""};
 {16, 4000070, "", "Scarlet Knife", "", "", ""};
+{17, 4000157, "", "Scarlet Mail Tunic", "", "", ""};
+{18, 4000158, "", "Scarlet Cloth Belt", "", "", ""};
 {20, 4000144, "", "Scarlet Priest's Sigil", "", "", "25%"};
 {21, 4000145, "", "Scarlet Combatant's Emblem", "", "", "25%"};
 		
@@ -172,12 +184,15 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 {13, 4000085, "", "Scarlet Cape", "", "", ""};
 {14, 4000009, "", "Scarlet Claymore", "", "", ""};
 {15, 4000037, "", "Scarlet Plate Legplates", "", "", ""};		
+{16, 4000159, "", "Scarlet Leather Strap", "", "", ""};		
+{17, 4000160, "", "Scarlet Leather Buckle", "", "", ""};		
 {20, 4000000, "", "Scarlet Prophet's Bauble", "", "", "25%"};
 {21, 4000012, "", "Scarlet Militant's Emblem", "", "", "25%"};
 {22, 4000024, "", "Scarlet Spellbinder's Sigil", "", "", "25%"};
 {23, 4000072, "", "Scarlet Champion's Badge", "", "", "25%"};
 {24, 4000138, "", "Scarlet Pugilist's Medallion", "", "", "25%"};
 {25, 4000139, "", "Scarlet Defender's Sigil", "", "", "25%"};
+{28, 195013, "", "Prestigious Bloodforged Courser", "", "", "5%"};
 
 	Prev = "SMHHerod";
 	Next = "SMHWhitemane";
@@ -200,12 +215,15 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 {14, 4000137, "", "Scarlet Plate Mits", "", "", ""};
 {15, 4000059, "", "Scarlet Gavel", "", "", ""};
 {16, 4000092, "", "Scarlet Hoop", "", "", ""};
+{17, 4000161, "", "Scarlet Mail Strap", "", "", ""};
+{18, 4000162, "", "Scarlet Leather Legguards", "", "", ""};
 {20, 4000140, "", "Scarlet Mystic's Trinket", "", "", "25%"};
 {21, 4000141, "", "Scarlet Spiritualist's Emblem", "", "", "25%"};
 {22, 4000142, "", "Scarlet Theurgist's Medallion", "", "", "25%"};
 {23, 4000143, "", "Scarlet Panzer's Emblem", "", "", "25%"};
 {24, 4000144, "", "Scarlet Priest's Sigil", "", "", "25%"};
 {25, 4000145, "", "Scarlet Combatant's Emblem", "", "", "25%"};
+{28, 195101, "", "Companion: Whitemane", "", "", "5%"};
 		
 	Prev = "SMHMograine";
 	Next = "SMHTrash";
