@@ -6,6 +6,8 @@
 
 --- Edit here: ItemLevel | Text shown.
 local itemLevelsAndTexts = {
+    [10] = "|cff00FF00Store Transmog|r",
+    [15] = "|cff00FF00Transmog|r",	
     [66] = "|cff00FF00Tier 1|r",
     [76] = "|cff00FF00Tier 2|r",
     [86] = "|cff00FF00Tier 3|r",
